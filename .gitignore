@@ -1,0 +1,30 @@
+.idea
+
+# Byte-compiled / optimized files
+__pycache__/
+*.pyc
+*.pyo
+__pycache__
+
+# Virtual Environment
+venv/
+env/
+*.env
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Compiled Python files
+*.pyc
+
+# Log files
+*.log
+
+# Local configuration files
+*.ini
+*.conf

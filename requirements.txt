@@ -1,0 +1,14 @@
+marshmallow>=3
+marshmallow-sqlalchemy
+flask
+flask-restful
+Flask-SQLAlchemy==2.5.1
+flask-marshmallow
+Flask-JWT==0.2.0
+Flask-JWT-Extended==4.2.3
+itsdangerous==2.0.1
+python-dotenv
+Werkzeug==3.0.0
+passlib
+SQLAlchemy==1.4
+psycopg2-binary==2.9.3

@@ -1,0 +1,6 @@
+# Flask App
+# ------------------------------------------------------------------------------
+FLASK_DEBUG=1
+APP_SETTINGS=blacklist.config.DevelopmentConfig
+FLASK_APP=blacklist.app:create_app
+JWT_SECRET_KEY=QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5
