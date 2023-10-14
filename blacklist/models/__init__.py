@@ -1,3 +1,3 @@
-from .users import User
+from .users import User, BlackList
 
-__all__ = ["User"]
+__all__ = ["User", "BlackList"]
