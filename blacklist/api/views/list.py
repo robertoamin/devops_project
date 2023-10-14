@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from ...models import BlackList
 from flask import Flask, request
 from blacklist.extensions import db
-
+import uuid
 
 class BlackListView(Resource):
     @jwt_required()
@@ -18,7 +18,7 @@ class BlackListView(Resource):
     def post(self):
         data = request.get_json()
         email = data.get('email')
-        app_uuid = data.get('app_uuid')
+        app_uuid = str(uuid.uuid4()) #data.get('app_uuid')
         blocked_reason = data.get('blocked_reason')
 
         # Capturar la dirección IP
