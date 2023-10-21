@@ -1,5 +1,6 @@
-from blacklist.extensions import db, pwd_context
 from sqlalchemy.ext.hybrid import hybrid_property
+
+from blacklist.extensions import db, pwd_context
 
 
 class User(db.Model):
@@ -22,3 +23,4 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User %s>" % self.email
+

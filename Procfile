@@ -1,0 +1,1 @@
+web: python -m blacklist.manage create_db && python -m blacklist.wsgi

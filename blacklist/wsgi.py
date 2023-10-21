@@ -1,8 +1,11 @@
 from blacklist.app import create_app
+from blacklist.extensions import db
 
 app = create_app()
 
-if __name__ == '__main__':
-    from werkzeug.serving import run_simple
+if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
+    app.run()
 
-    run_simple('0.0.0.0', 5000, app, use_reloader=True, use_debugger=True)
+
