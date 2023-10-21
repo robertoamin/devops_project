@@ -2,7 +2,8 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from flask_restful import Api, Resource
 from flask import request, send_file
 from marshmallow import ValidationError
-
+# from blacklist.config import BaseConfig
+import os
 from blacklist.api.schemas.users import LoginSchema, UserSchema
 from blacklist.extensions import db
 from blacklist.models import User
@@ -42,7 +43,12 @@ class SignUpView(Resource):
     @staticmethod
     def post():
         json_data = request.get_json()
-
+        # If using the base configuration
+        # config = BaseConfig()
+        # print(config.SQLALCHEMY_DATABASE_URI)
+        print(os.getenv('POSTGRES_USER'))
+        print(os.getenv('POSTGRES_HOST'))
+        print(os.getenv('APP_SETTINGS'))
         if not json_data:
             return {"message": "No input data provided"}, 400
 
