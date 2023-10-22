@@ -144,7 +144,7 @@
 		},
 		{
 			"key": "SERVER",
-			"value": "localhost:5001",
+			"value": "http://Blacklist-allatonce-env.eba-a3cctmyp.us-east-1.elasticbeanstalk.com",
 			"type": "string"
 		}
 	]
