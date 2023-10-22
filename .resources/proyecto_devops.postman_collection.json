@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "72fc35fe-2f2a-413d-88ee-fa8060d7b975",
+		"name": "proyecto_devops",
+		"description": "Proceso de gestión de listas negras de emails, microservicio que permite gestionar la lista negra global de la empresa.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23865210",
+		"_collection_link": "https://jupiter-grupo1.postman.co/workspace/pruebas_devops~3eb61b94-416e-4901-aff1-a5aa50536a0c/collection/23865210-72fc35fe-2f2a-413d-88ee-fa8060d7b975?action=share&source=collection_link&creator=23865210"
+	},
+	"item": [
+		{
+			"name": "Block_Email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{USER_TOKEN}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"jesus@correo.com\",\r\n    \"blocked_reason\":\"No pago la suscripcion tampoco\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{SERVER}}/blacklists",
+				"description": "Permite agregar un email a la lista negra global de la organización.\n\nretorna: StartFragment{    \"message\": \"Email añadido a la lista negra con éxito\"}EndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Sign-up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"larry@correo.com\",\r\n    \"password\":\"12345\",\r\n    \"password2\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{SERVER}}/sign-up",
+				"description": "Permite crear un usuario en nuestra aplicacion:\n\nretorna:\n\nStartFragment{ \"status\": \"OK\" }EndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonResponse = pm.response.json(); \r",
+							"pm.environment.set(\"USER_TOKEN\", jsonResponse.token);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"pepe@correo.com\",\r\n    \"password\":\"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{SERVER}}/login",
+				"description": "Permite loguearse (ingresar con un usuario valido) a nuestra aplicacion.\n\nretorna:\n\nStartFragment{    \"message\": \"Success\",    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5Nzk4NzAyMCwianRpIjoiOGNiMGU2ZTgtMjgwMC00YzJkLTkwMzUtZDgyNzdjYmE4NDBlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MywibmJmIjoxNjk3OTg3MDIwLCJleHAiOjE2OTc5ODc5MjB9.4eehiXG7R0J4QokHb-Iyda03Yj2WoKOE9cKhouF47dY\",    \"id\": 3}EndFragment  \n  \nse entra un token de autorizacion para poder ejecutar acciones dentro de la aplicacion blacklist"
+			},
+			"response": []
+		},
+		{
+			"name": "Get_Email_Blocked",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{USER_TOKEN}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{SERVER}}/blacklists/juan@correo.com",
+				"description": "Permite saber si un email está en la lista negra global de la organización o no, y el motivo por el que fue agregado a la lista negra.\n\nretorna: StartFragment{ \"blacklisted\": true, \"reason\": \"No pago la suscripcion tampoco\" }EndFragment"
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{SERVER}}/health",
+				"description": "Permite revisar el estado del microservicio, para ver si esta arriba o no\n\nretorna:\n\nStartFragment{ \"status\": \"OK\"}EndFragment"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "{{USER_TOKEN}}"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "USER_TOKEN",
+			"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY5NzI1NTAzNywianRpIjoiZTg5ZTAwZjMtM2YwNS00YWYyLThmYWEtYWJiMjZhMjc0NGFlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNjk3MjU1MDM3LCJleHAiOjE2OTcyNTU5Mzd9.IlSoSmWtlz-j0EmryeGIGVL3TylLjhE1LsL1wYvjwo8\""
+		},
+		{
+			"key": "SERVER",
+			"value": "localhost:5001",
+			"type": "string"
+		}
+	]
+}
