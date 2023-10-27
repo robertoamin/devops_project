@@ -16,6 +16,12 @@ docker-compose -f local.yml build
 docker-compose -f local.yml up
 ```
 
+# Ejecutar pruebas
+
+```bash
+docker compose -f local.yml run --rm flask python -m unittest discover
+```
+
 # Estructura del Proyecto
 
 - `.envs/`: Archivos para variables de entorno.

@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.7
+
+  pre_build:
+    commands:
+      - TAG="develop-$(date +%Y-%m-%d.%H.%M.%S).$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | head -c 8)"
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $REPOSITORY_URI
+
+  build:
+    commands:
+      - docker-compose -f local.yml build
+      - docker-compose -f local.yml run --rm flask python -m unittest discover
+
+  post_build:
+    commands:
+      - docker tag devops_project-flask:latest $REPOSITORY_URI:$TAG
+      - docker push $REPOSITORY_URI:$TAG
+
+artifacts:
+  files: '**/*'
