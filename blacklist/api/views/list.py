@@ -34,6 +34,11 @@ class BlackListView(Resource):
         email = data.email
         blocked_reason = data.blocked_reason
 
+        # Validar que no exista el correo en la lista negra
+        existing_entry = BlackList.query.filter_by(email=email).first()
+        if existing_entry:
+            return {"message": "Email ya existe en la lista negra, por favor ingrese otro..."}, 400
+
         # Capturar la dirección IP
         ip_address = request.remote_addr
 
