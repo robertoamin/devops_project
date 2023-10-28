@@ -17,7 +17,7 @@ phases:
 
   post_build:
     commands:
-      - docker tag devops_project-flask:latest $REPOSITORY_URI:$TAG
+      - docker tag blacklist_flask:latest $REPOSITORY_URI:$TAG
       - docker push $REPOSITORY_URI:$TAG
 
 artifacts:
