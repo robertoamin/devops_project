@@ -30,5 +30,4 @@ services:
       - ./.envs/.local/.postgres
       - ./.envs/.local/.flask
     depends_on:
-      postgres:
-        condition: service_healthy
+      - postgres
