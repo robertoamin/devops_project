@@ -21,4 +21,4 @@ RUN pip install -r requirements.txt
 COPY blacklist blacklist/
 EXPOSE 5000
 
-CMD python -m blacklist.manage create_db && python -m blacklist.wsgi
+CMD python -m blacklist.manage create_db && exec gunicorn -b 0.0.0.0:5000  --timeout 0 blacklist.wsgi:app
