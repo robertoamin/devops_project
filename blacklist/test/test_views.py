@@ -2,6 +2,7 @@ import unittest
 import uuid
 
 from blacklist.app import create_app
+from blacklist.extensions import db
 
 
 class TestBlacklist(unittest.TestCase):
@@ -10,7 +11,23 @@ class TestBlacklist(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.client = self.app.test_client()
         self.app_context.push()
-        self.user_id = str(uuid.uuid4())
+        self.token = None
+
+        with self.app.app_context():
+            db.drop_all()
+            db.create_all()
+
+        self.client.post('/sign-up', json={
+            "email": "pepe@correo.com",
+            "password": "12345",
+            "password2": "12345"
+        })
+        response = self.client.post('/login', json={
+            "email": "pepe@correo.com",
+            "password": "12345"
+        })
+        json = response.get_json()
+        self.token = json['token']
 
     def tearDown(self):
         self.app_context.pop()
@@ -55,7 +72,6 @@ class TestBlacklist(unittest.TestCase):
             "email": "user@example.com",
             "password": "password123",
             "password2": "password123"
-
         }
         response = self.client.post('/sign-up', json=data)
 
@@ -85,7 +101,10 @@ class TestBlacklist(unittest.TestCase):
             "blocked_reason": "New reason"
         }
         response = self.client.post(
-            '/blacklists', json=data, headers={'Authorization' f'Bearer {self.user_id}'})
+            '/blacklists',
+            json=data,
+            headers={'Authorization': f'Bearer {self.token}'}
+        )
 
         self.assertEqual(response.status_code, 201)
         data = response.get_json()
@@ -94,7 +113,7 @@ class TestBlacklist(unittest.TestCase):
     def test_add_empty_blacklist_entry(self):
         data = {}
         response = self.client.post(
-            '/blacklists', json=data, headers={'Authorization' f'Bearer {self.user_id}'})
+            '/blacklists', json=data, headers={'Authorization': f'Bearer {self.token}'})
 
         self.assertEqual(response.status_code, 400)
         data = response.get_json()
@@ -106,22 +125,33 @@ class TestBlacklist(unittest.TestCase):
             "blocked_reason": "New reason"
         }
         response = self.client.post(
-            '/blacklists', json=data, headers={'Authorization' f'Bearer {self.user_id}'})
+            '/blacklists', json=data, headers={'Authorization': f'Bearer {self.token}'})
 
         self.assertEqual(response.status_code, 422)
 
     def test_get_blacklist_entry(self):
+        self.client.post(
+            '/blacklists',
+            json={
+                "email": "exist@correo.com",
+                "blocked_reason": "New reason"
+            },
+            headers={'Authorization': f'Bearer {self.token}'}
+        )
         response = self.client.get(
-            '/blacklists/test@example.com', headers={'Authorization' f'Bearer {self.user_id}'})
+            '/blacklists/exist@correo.com',
+            headers={'Authorization': f'Bearer {self.token}'}
+        )
+
+        data = response.get_json()
 
         self.assertEqual(response.status_code, 200)
-        data = response.get_json()
         self.assertTrue(data["blacklisted"])
-        self.assertEqual(data["reason"], "Test reason")
+        self.assertEqual(data["reason"], "New reason")
 
     def test_get_non_existing_blacklist_entry(self):
         response = self.client.get(
-            '/blacklists/nonexistent@example.com', headers={'Authorization' f'Bearer {self.user_id}'})
+            '/blacklists/nonexistent@example.com', headers={'Authorization': f'Bearer {self.token}'})
 
         self.assertEqual(response.status_code, 200)
         data = response.get_json()
