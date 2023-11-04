@@ -1,5 +1,5 @@
 {
-  "AWSEBDockerrunVersion": "3",
+  "AWSEBDockerrunVersion": "1",
   "Image": {
     "Name": "273162695576.dkr.ecr.us-east-1.amazonaws.com/blacklist:develop-2023-11-03.21.23.03.4ae87b57",
     "Update": "true"
