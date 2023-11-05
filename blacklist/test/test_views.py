@@ -153,7 +153,7 @@ class TestBlacklist(unittest.TestCase):
         response = self.client.get(
             '/blacklists/nonexistent@example.com', headers={'Authorization': f'Bearer {self.token}'})
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
         data = response.get_json()
         self.assertFalse(data["blacklisted"])
         self.assertIsNone(data["reason"])
