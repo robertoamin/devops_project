@@ -28,3 +28,7 @@ Thumbs.db
 # Local configuration files
 *.ini
 *.conf
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
