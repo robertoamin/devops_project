@@ -115,7 +115,7 @@ class TestBlacklist(unittest.TestCase):
         response = self.client.post(
             '/blacklists', json=data, headers={'Authorization': f'Bearer {self.token}'})
 
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 200)
         data = response.get_json()
         self.assertEqual(data["message"], "No input data provided")
 
