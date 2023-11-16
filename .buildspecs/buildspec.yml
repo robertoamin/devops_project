@@ -19,6 +19,7 @@ phases:
     commands:
       - docker tag blacklist:latest $REPOSITORY_URI:$TAG
       - docker push $REPOSITORY_URI:$TAG
+      - printf '[{"name":"blacklist","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
 
 artifacts:
-  files: '**/*'
+  files: imagedefinitions.json
