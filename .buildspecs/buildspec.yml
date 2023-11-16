@@ -19,7 +19,7 @@ phases:
     commands:
       - docker tag blacklist_flask:latest $REPOSITORY_URI:$TAG
       - docker push $REPOSITORY_URI:$TAG
-      - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
+      - printf '[{"name":"blacklist","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
 
 artifacts:
   files: imagedefinitions.json
