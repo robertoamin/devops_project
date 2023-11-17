@@ -1,5 +1,5 @@
 # base image
-FROM python:3.10-alpine
+FROM public.ecr.aws/docker/library/python:3.10-alpine
 
 # set working directory
 RUN mkdir -p /code
