@@ -32,6 +32,14 @@ resource "aws_alb_target_group" "app" {
   tags = var.tags
 }
 
+resource "aws_lb_target_group" "app_two" {
+  name        = "${var.app_name}-target2-group"
+  port        = 80
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+}
+
 resource "aws_alb_listener" "http_local" {
   load_balancer_arn = aws_lb.app.id
   port              = 80
