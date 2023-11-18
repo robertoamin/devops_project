@@ -1,0 +1,64 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:273162695576:task-definition/blacklist-task:1",
+  "containerDefinitions": [
+    {
+      "name": "blacklist",
+      "image": "<IMAGE>",
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "hostPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "FLASK_DEBUG",
+          "value": "1"
+        },
+        {
+          "name": "APP_SETTINGS",
+          "value": "blacklist.config.DevelopmentConfig"
+        },
+        {
+          "name": "FLASK_APP",
+          "value": "blacklist.app:create_app"
+        },
+        {
+          "name": "JWT_SECRET_KEY",
+          "value": "blacklist.app:create_app"
+        },
+        {
+          "name": "POSTGRES_HOST",
+          "value": "blacklist-rds-dev.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "app"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "app"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "app"
+        }
+      ]
+    }
+  ],
+  "taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-blacklist",
+  "executionRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-blacklist",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "networkMode": "awsvpc",
+  "cpu": "1024",
+  "memory": "2048",
+  "family": "blacklist-task"
+}
