@@ -27,6 +27,7 @@ artifacts:
   files:
     - imagedefinitions.json
     - imageDetail.json
+    - appspec.json
   secondary-artifacts:
     DefinitionArtifact:
       files:
