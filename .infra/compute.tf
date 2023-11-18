@@ -159,7 +159,8 @@ resource "aws_ecs_service" "app" {
       task_definition,
       desired_count,
       capacity_provider_strategy,
-      launch_type
+      launch_type,
+      platform_version
     ]
   }
 }
