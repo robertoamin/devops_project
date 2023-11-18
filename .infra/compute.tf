@@ -143,6 +143,10 @@ resource "aws_ecs_service" "app" {
     container_port   = var.container_port
   }
 
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
   capacity_provider_strategy {
     capacity_provider = "FARGATE_SPOT"
     weight            = 2
