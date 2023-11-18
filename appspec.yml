@@ -1,0 +1,14 @@
+version: 0.0
+Resources:
+  - TargetService:
+      Type: AWS::ECS::Service
+      Properties:
+        TaskDefinition: "arn:aws:ecs:us-east-1:273162695576:task-definition/blacklist-task:1"
+        LoadBalancerInfo:
+          ContainerName: "blacklist"
+          ContainerPort: 5000
+# Optional properties
+        PlatformVersion: "LATEST"
+        NetworkConfiguration:
+          AwsvpcConfiguration:
+            Subnets: ["subnet-099d9c37d9aa79b16","subnet-08f69ef22a2ff41b1"]
