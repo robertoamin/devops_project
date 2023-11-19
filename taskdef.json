@@ -51,6 +51,7 @@
       ]
     }
   ],
+  "taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-blacklist",
   "executionRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-blacklist",
   "requiresCompatibilities": [
     "FARGATE"
