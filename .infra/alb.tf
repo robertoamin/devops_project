@@ -24,9 +24,9 @@ resource "aws_alb_target_group" "app" {
     path                = var.health_check_endpoint
     protocol            = "HTTP"
     interval            = 30
-    timeout             = 5
-    healthy_threshold   = 2
-    unhealthy_threshold = 2
+    timeout             = 20
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
   }
 
   tags = var.tags
@@ -34,10 +34,19 @@ resource "aws_alb_target_group" "app" {
 
 resource "aws_lb_target_group" "app_two" {
   name        = "${var.app_name}-target2-group"
-  port        = 80
+  port        = 8080
   protocol    = "HTTP"
   vpc_id      = var.vpc_id
   target_type = "ip"
+
+  health_check {
+    path                = var.health_check_endpoint
+    protocol            = "HTTP"
+    interval            = 30
+    timeout             = 20
+    healthy_threshold   = 3
+    unhealthy_threshold = 3
+  }
 }
 
 resource "aws_alb_listener" "http_local" {

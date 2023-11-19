@@ -79,13 +79,12 @@ resource "aws_iam_role" "ecs_task_execution_role" {
  "Version": "2012-10-17",
  "Statement": [
    {
-     "Action": "sts:AssumeRole",
-     "Principal": {
-       "Service": "ecs-tasks.amazonaws.com"
-     },
-     "Effect": "Allow",
-     "Sid": ""
-   }
+    "Effect": "Allow",
+    "Principal": {
+      "Service": "ecs-tasks.amazonaws.com"
+    },
+    "Action": "sts:AssumeRole"
+  }
  ]
 }
 EOF
@@ -96,6 +95,11 @@ resource "aws_iam_role_policy" "ecs_cluster_ecstaskpolicy" {
   name   = "ecs-ecsTaskExecutionRole-ECSTaskPolicy-${var.app_name}"
   role   = aws_iam_role.ecs_task_execution_role.id
   policy = var.ecs_role_policy
+}
+
+resource "aws_iam_role_policy_attachment" "ecs-task-execution-role-policy-attachment" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
 
 resource "aws_ecs_task_definition" "app" {
@@ -111,7 +115,7 @@ resource "aws_ecs_task_definition" "app" {
   [
     {
       "name": "blacklist",
-      "image": "hello-world:latest",
+      "image": "273162695576.dkr.ecr.us-east-1.amazonaws.com/blacklist-ecr:develop-2023-11-19.19.05.38.a3b260fa",
       "networkMode": "awsvpc",
       "essential": true,
       "portMappings": [
@@ -119,7 +123,54 @@ resource "aws_ecs_task_definition" "app" {
           "containerPort": ${var.container_port},
           "hostPort": ${var.container_port}
         }
-      ]
+      ],
+      "environment": [
+        {
+          "name": "FLASK_DEBUG",
+          "value": "1"
+        },
+        {
+          "name": "APP_SETTINGS",
+          "value": "blacklist.config.DevelopmentConfig"
+        },
+        {
+          "name": "FLASK_APP",
+          "value": "blacklist.app:create_app"
+        },
+        {
+          "name": "JWT_SECRET_KEY",
+          "value": "blacklist.app:create_app"
+        },
+        {
+          "name": "POSTGRES_HOST",
+          "value": "blacklist-rds-dev.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
+        },
+        {
+          "name": "POSTGRES_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "POSTGRES_DB",
+          "value": "app"
+        },
+        {
+          "name": "POSTGRES_USER",
+          "value": "app"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "value": "123asd456"
+        }
+      ],
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:5000/health || exit 1"
+        ],
+        "interval": 5,
+        "timeout": 2,
+        "retries": 3
+      }
     }
   ]
   EOF
@@ -132,11 +183,13 @@ resource "aws_ecs_service" "app" {
   desired_count          = var.fargate_service_min_capacity
   enable_execute_command = true
   platform_version       = "LATEST"
+
   network_configuration {
-    subnets          = var.private_subnets
+    subnets          = concat(var.subnets, var.private_subnets)
     security_groups  = concat([aws_security_group.app_service.id], var.fargate_service_security_groups)
-    assign_public_ip = false
+    assign_public_ip = true
   }
+
   load_balancer {
     target_group_arn = aws_alb_target_group.app.arn
     container_name   = "blacklist"
@@ -160,7 +213,9 @@ resource "aws_ecs_service" "app" {
       desired_count,
       capacity_provider_strategy,
       launch_type,
-      platform_version
+      load_balancer,
+      platform_version,
+      network_configuration
     ]
   }
 }
