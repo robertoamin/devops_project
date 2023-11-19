@@ -46,7 +46,7 @@
         },
         {
           "name": "POSTGRES_PASSWORD",
-          "value": "app"
+          "value": "123asd456"
         }
       ]
     }
