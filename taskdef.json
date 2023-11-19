@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "blacklist",
-      "image": "<IMAGE>",
+      "image": "<IMAGE1_NAME>",
       "portMappings": [
         {
           "containerPort": 5000,
