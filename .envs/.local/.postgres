@@ -1,6 +1,6 @@
 # PostgreSQL
 # ------------------------------------------------------------------------------
-POSTGRES_HOST=postgres
+POSTGRES_HOST=app.c6hjnftyyenf.us-east-1.rds.amazonaws.com
 POSTGRES_PORT=5432
 POSTGRES_DB=app
 POSTGRES_USER=app
