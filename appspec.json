@@ -1,19 +1,17 @@
 {
-    "version": 0.0,
-    "Resources": [
-        {
-            "TargetService": {
-                "Type": "AWS::ECS::Service",
-                "Properties": {
-                    "TaskDefinition": "<TASK_DEFINITION>",
-                    "LoadBalancerInfo": {
-                        "ContainerName": "Container-blacklist-ra",
-                        "ContainerPort": 5000
-                    }
-
-                }
-            }
+  "version": 0.0,
+  "Resources": [
+    {
+      "TargetService": {
+        "Type": "AWS::ECS::Service",
+        "Properties": {
+          "TaskDefinition": "<TASK_DEFINITION>",
+          "LoadBalancerInfo": {
+            "ContainerName": "Container-blacklist-ra",
+            "ContainerPort": 5000
+          }
         }
-    ]
-
+      }
+    }
+  ]
 }
