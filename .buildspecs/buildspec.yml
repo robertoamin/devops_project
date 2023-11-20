@@ -27,12 +27,12 @@ phases:
     files:
       - imagedefinitions.json
       - imageDetail.json
-      - appspec.json
+      - appspec.yml
       - taskdef.json
     secondary-artifacts:
       DefinitionArtifact:
         files:
-          - appspec.json
+          - appspec.yml
       ImageDetailArtifact:
         files:
           - imageDetail.json
