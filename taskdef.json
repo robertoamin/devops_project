@@ -2,7 +2,7 @@
   "containerDefinitions": [
     {
       "name": "Container-blacklist-ra",
-      "image": "<IMAGE1_NAME>",
+      "image": "273162695576.dkr.ecr.us-east-1.amazonaws.com/blacklist:latest",
       "portMappings": [
         {
           "containerPort": 5000,
