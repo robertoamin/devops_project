@@ -1,7 +1,7 @@
 {
   "containerDefinitions": [
     {
-      "name": "blacklist",
+      "name": "Container-blacklist-ra",
       "image": "<IMAGE1_NAME>",
       "portMappings": [
         {
@@ -26,11 +26,11 @@
         },
         {
           "name": "JWT_SECRET_KEY",
-          "value": "blacklist.app:create_app"
+          "value": "QeThWmZq4t7w!z%C*F)J@NcRfUjXn2r5"
         },
         {
           "name": "POSTGRES_HOST",
-          "value": "blacklist-rds-dev.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
+          "value": "app.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
         },
         {
           "name": "POSTGRES_PORT",
@@ -52,7 +52,7 @@
     }
   ],
   "taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
-  "executionRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
+  "executionRoleArn": "arn:aws:iam::273162695576:role/ecsTaskExecutionRole",
   "requiresCompatibilities": [
     "FARGATE"
   ],
