@@ -23,17 +23,17 @@ phases:
       - printf '[{"name":"blacklist","imageUri":"%s"}]' $REPOSITORY_URI:$TAG > imagedefinitions.json
       - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$TAG > imageDetail.json
 
-  artifacts:
-    files:
-      - imagedefinitions.json
-      - imageDetail.json
-      - appspec.json
-      - taskdef.json
-    secondary-artifacts:
-      DefinitionArtifact:
-        files:
-          - appspec.json
-      ImageDetailArtifact:
-        files:
-          - imageDetail.json
+artifacts:
+  files:
+    - imagedefinitions.json
+    - imageDetail.json
+    - appspec.json
+    - taskdef.json
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.json
+    ImageDetailArtifact:
+      files:
+        - imageDetail.json
 
