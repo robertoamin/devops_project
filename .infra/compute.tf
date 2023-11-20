@@ -143,7 +143,7 @@ resource "aws_ecs_task_definition" "app" {
         },
         {
           "name": "POSTGRES_HOST",
-          "value": "blacklist-rds-dev.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
+          "value": "app.c6hjnftyyenf.us-east-1.rds.amazonaws.com"
         },
         {
           "name": "POSTGRES_PORT",

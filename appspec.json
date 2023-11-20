@@ -9,14 +9,6 @@
                     "LoadBalancerInfo": {
                         "ContainerName": "Container-blacklist-ra",
                         "ContainerPort": 5000
-                    },
-                    "PlatformVersion": "LATEST",
-                    "NetworkConfiguration": {
-                        "AwsvpcConfiguration": {
-                            "Subnets": [
-                                "subnet-099d9c37d9aa79b16","subnet-08f69ef22a2ff41b1"
-                            ]
-                        }
                     }
 
                 }
