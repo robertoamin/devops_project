@@ -52,7 +52,7 @@
     }
   ],
   "taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
-  "executionRoleArn": "arn:aws:iam::273162695576:role/ecsTaskExecutionRole-black",
+  "executionRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
   "requiresCompatibilities": [
     "FARGATE"
   ],
