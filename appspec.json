@@ -5,9 +5,9 @@
       "TargetService": {
         "Type": "AWS::ECS::Service",
         "Properties": {
-          "TaskDefinition": "arn:aws:ecs:us-east-1:273162695576:task-definition/Task-app-blacklist-ra",
+          "TaskDefinition": "<TASK_DEFINITION>",
           "LoadBalancerInfo": {
-            "ContainerName": "Container-blacklist-ra",
+            "ContainerName": "Container-blacklist-ra-2",
             "ContainerPort": 5000
           }
         }
