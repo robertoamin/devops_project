@@ -51,13 +51,13 @@
       ]
     }
   ],
-  "taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
+  //"taskRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
   "executionRoleArn": "arn:aws:iam::273162695576:role/ecs-ecsTaskExecutionRole-black",
   "requiresCompatibilities": [
     "FARGATE"
   ],
   "networkMode": "awsvpc",
-  "cpu": "1024",
-  "memory": "2048",
+  //"cpu": "1024",
+  //"memory": "2048",
   "family": "Task-app-blacklist-ra-2"
 }
